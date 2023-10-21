@@ -1,0 +1,7 @@
+[
+  { "description": "Jog around the park", "completed": true },
+  { "description": "10 minutes meditation", "completed": false },
+  { "description": "Read for 1 hour", "completed": false },
+  { "description": "Pick up groceries", "completed": false },
+  { "description": "Complete Todo App on Frontend Mentor", "completed": false }
+]

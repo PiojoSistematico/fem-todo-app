@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        "bright-blue": "#3a7bfd",
-        "check-bg-1": "#57ddff",
-        "check-bg-2": "#c058f3",
+        "primary-1": "#3a7bfd",
+        "primary-2": "#57ddff",
+        "primary-3": "#c058f3",
         "light-1": "#fafafa",
         "light-2": "#e4e5f1",
         "light-3": "#d2d3db",
@@ -21,7 +21,7 @@ export default {
         "dark-7": "#393a4c",
       },
       fontFamily: {
-        league: ["Josefin Sans", "sans-serif"],
+        JosefinSans: ["JosefinSans", "sans-serif"],
       },
     },
   },

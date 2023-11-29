@@ -1,5 +1,6 @@
 [
-  { "description": "Jog around the park", "completed": true },
+  { "description": "Complete online JavaScript course", "completed": true },
+  { "description": "Jog around the park", "completed": false },
   { "description": "10 minutes meditation", "completed": false },
   { "description": "Read for 1 hour", "completed": false },
   { "description": "Pick up groceries", "completed": false },

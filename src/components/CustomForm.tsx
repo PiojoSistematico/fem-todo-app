@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Circle from "./Circle";
 
 const FormSchema = z.object({
-  text: z
+  description: z
     .string()
-    .min(3, { message: "Todos should have at least 3 characters" }),
+    .min(5, { message: "Todos should have at least 5 characters" }),
 });
 
 type TypeSchema = z.infer<typeof FormSchema>;
@@ -25,7 +24,7 @@ const CustomForm: React.FunctionComponent<FormTypes> = ({ setTodos }) => {
     register,
     reset,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<TypeSchema>({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
@@ -36,76 +35,34 @@ const CustomForm: React.FunctionComponent<FormTypes> = ({ setTodos }) => {
     console.log(data);
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    /*     if (type == "reply") {
-      const newParent: Comment = [...comments].filter(
-        (elem) => elem.id == parent,
-      )[0];
-      newParent.replies.push(newid); */
+    setTodos((prev) => [
+      ...prev,
+      { description: data.description, completed: false },
+    ]);
 
-    /*       setComments([
-        ...comments.filter((elem) => elem.id != parent),
-        {
-          id: newid,
-          content: data.text,
-          createdAt: "1 min ago",
-          score: 1,
-          user: currentUser,
-          replies: [],
-          original: original,
-        },
-        newParent,
-      ]);
-
-      setIsReplyOpen(false);
-    } else {
-      setComments([
-        ...comments,
-        {
-          id: newid,
-          content: data.text,
-          createdAt: "1 min ago",
-          score: 1,
-          user: currentUser,
-          replies: [],
-          original: original,
-        },
-      ]);
-    } */
     reset();
   }
-
-  /* function handleSubmit(e: FormEvent): void {
-    e.preventDefault();
-
-    const form = e.currentTarget as HTMLFormElement;
-    const description = (
-      form.elements.namedItem("description") as HTMLInputElement
-    )?.value;
-
-    if (description) {
-      setTodos((prev) => [...prev, { description, completed: false }]);
-
-      form.reset();
-    }
-  } */
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       action=""
-      className="flex flex-col gap-4 rounded-md bg-neutral-5 p-4"
+      className="relative bg-white rounded-md py-6 px-4 flex flex-row gap-2 items-center"
     >
-      <Circle completed={false}></Circle>
+      <div className="w-4 h-4 rounded-full border-solid border-light-3 border"></div>
 
       <input
-        {...register("text")}
+        {...register("description")}
         placeholder="Create a new todo..."
-        type="text"
-        className="w-full"
+        name="description"
+        className=""
       ></input>
-      {errors.text && (
-        <p className="p-1 text-sm text-red-500">{errors.text.message}</p>
+      {errors.description && (
+        <p className="absolute left-4 -bottom-1 p-1 text-sm text-red-500">
+          {errors.description.message}
+        </p>
       )}
+      <input type="submit" hidden></input>
     </form>
   );
 };

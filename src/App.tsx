@@ -1,9 +1,8 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Button, Input, TextField } from "react-aria-components";
 import { IconMoon, IconSun } from "./components/Icons";
-import iconCross from "./assets/images/icon-cross.svg";
-import Circle from "./components/Circle";
 import Todo from "./components/Todo";
+import CustomForm from "./components/CustomForm";
 
 type TodoProps = {
   description: string;
@@ -67,29 +66,42 @@ function App() {
             {theme == "sun" ? <IconSun></IconSun> : <IconMoon></IconMoon>}
           </Button>
         </header>
-        <section className="z-10 flex flex-col gap-4">
-          <form
-            onSubmit={handleSubmit}
-            action=""
-            className="bg-white rounded-md p-4 flex flex-row gap-2 items-center"
-          >
-            <Circle completed={false}></Circle>
-            <Input
-              className="w-full"
-              name="description"
-              placeholder="Create a new todo..."
-            ></Input>
-          </form>
+        <section className="z-10 flex flex-col gap-4 w-10/12">
+          <CustomForm setTodos={setTodos}></CustomForm>
           <ul className="flex flex-col rounded-lg overflow-hidden">
-            {todos.map((elem, index) => (
-              <Todo
-                key={index}
-                index={index}
-                removeTodo={removeTodo}
-                changeComplete={changeComplete}
-                todo={elem}
-              ></Todo>
-            ))}
+            {filter == "Completed"
+              ? todos
+                  .filter((elem) => elem.completed == true)
+                  .map((elem, index) => (
+                    <Todo
+                      key={index}
+                      index={index}
+                      removeTodo={removeTodo}
+                      changeComplete={changeComplete}
+                      todo={elem}
+                    ></Todo>
+                  ))
+              : filter == "Active"
+                ? todos
+                    .filter((elem) => elem.completed == false)
+                    .map((elem, index) => (
+                      <Todo
+                        key={index}
+                        index={index}
+                        removeTodo={removeTodo}
+                        changeComplete={changeComplete}
+                        todo={elem}
+                      ></Todo>
+                    ))
+                : todos.map((elem, index) => (
+                    <Todo
+                      key={index}
+                      index={index}
+                      removeTodo={removeTodo}
+                      changeComplete={changeComplete}
+                      todo={elem}
+                    ></Todo>
+                  ))}
           </ul>
           <div className="flex flex-col gap-4 bg-white">
             <div className="flex flex-row items-center justify-between p-4 text-light-4">
@@ -97,9 +109,9 @@ function App() {
               <Button>Clear Completed</Button>
             </div>
             <div className="flex flex-row items-center justify-center gap-4 p-4">
-              <Button>All</Button>
-              <Button>Active</Button>
-              <Button>Completed</Button>
+              <Button onPress={() => setFilter("All")}>All</Button>
+              <Button onPress={() => setFilter("Active")}>Active</Button>
+              <Button onPress={() => setFilter("Completed")}>Completed</Button>
             </div>
           </div>
         </section>

@@ -29,7 +29,7 @@ const Todo: React.FunctionComponent<TodoProps> = ({
             {todo.completed ? <IconCheck></IconCheck> : null}
           </Button>
 
-          <p className={todo.completed ? "line-through" : null}>
+          <p className={todo.completed ? "line-through" : "null"}>
             {todo.description}
           </p>
         </div>

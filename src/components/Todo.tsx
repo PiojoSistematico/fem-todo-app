@@ -16,20 +16,22 @@ const Todo: React.FunctionComponent<TodoProps> = ({
 }) => {
   return (
     <>
-      <li className="flex flex-row items-center justify-between bg-white p-4">
+      <li className="flex flex-row items-center justify-between bg-BackgroundTodo p-4 text-TextParagraph">
         <div className="flex flex-row items-center gap-2">
           <Button
             onPress={() => changeComplete(index)}
             className={`w-6 h-6 flex flex-row items-center justify-center rounded-full ${
               todo.completed
-                ? `bg-gradient-to-r from-primary-2 to-primary-3`
-                : `border-solid border-light-3 border`
+                ? `bg-gradient-to-r from-Gradient1 to-Gradient2`
+                : `border-solid border-Border border`
             } `}
           >
             {todo.completed ? <IconCheck></IconCheck> : null}
           </Button>
 
-          <p className={todo.completed ? "line-through" : "null"}>
+          <p
+            className={todo.completed ? "line-through text-TextButton" : "null"}
+          >
             {todo.description}
           </p>
         </div>

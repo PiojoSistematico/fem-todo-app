@@ -12,7 +12,7 @@ type TodoProps = {
 type FilterProps = "All" | "Active" | "Completed";
 
 function App() {
-  const [theme, setTheme] = useState("sun");
+  const [theme, setTheme] = useState("light");
   const [todos, setTodos] = useState<TodoProps[]>([
     { description: "test", completed: false },
   ]);
@@ -53,17 +53,25 @@ function App() {
     });
   }
 
-  console.log(todos);
+  function clearCompletedTodos(): void {
+    setTodos((prev) => prev.filter((elem) => elem.completed == false));
+  }
 
   return (
     <>
-      <main className="relative bg-light-1 h-screen text-light-5 text-base flex flex-col items-center pt-20">
+      <main
+        className={`relative bg-BackgroundApp h-screen text-TextParagraph text-base flex flex-col items-center pt-20`}
+        data-theme={theme}
+      >
         <header className="absolute top-0 left-0 z-0 w-full flex flex-row items-start justify-between p-8 bg-center bg-no-repeat bg-cover bg-[url('src/assets/images/bg-mobile-light.jpg')] h-1/4">
           <h1 className="text-white uppercase font-bold tracking-[8px] text-3xl">
             todo
           </h1>
-          <Button className="p-1">
-            {theme == "sun" ? <IconSun></IconSun> : <IconMoon></IconMoon>}
+          <Button
+            className="p-1"
+            onPress={() => setTheme(theme == "light" ? "dark" : "light")}
+          >
+            {theme == "light" ? <IconMoon></IconMoon> : <IconSun></IconSun>}
           </Button>
         </header>
         <section className="z-10 flex flex-col gap-4 w-10/12">
@@ -103,20 +111,40 @@ function App() {
                     ></Todo>
                   ))}
           </ul>
-          <div className="flex flex-col gap-4 bg-white">
-            <div className="flex flex-row items-center justify-between p-4 text-light-4">
+          <div className="flex flex-col gap-4 bg-BackgroundTodo">
+            <div className="flex flex-row items-center justify-between p-4 text-TextButton">
               <span>{todos.length} items left</span>
-              <Button>Clear Completed</Button>
+              <Button onPress={() => clearCompletedTodos()}>
+                Clear Completed
+              </Button>
             </div>
-            <div className="flex flex-row items-center justify-center gap-4 p-4">
-              <Button onPress={() => setFilter("All")}>All</Button>
-              <Button onPress={() => setFilter("Active")}>Active</Button>
-              <Button onPress={() => setFilter("Completed")}>Completed</Button>
+            <div className="flex flex-row items-center justify-center gap-4 p-4 text-TextButton font-bold">
+              <Button
+                className={filter == "All" ? "text-Primary" : ""}
+                onPress={() => setFilter("All")}
+              >
+                All
+              </Button>
+              <Button
+                className={filter == "Active" ? "text-Primary" : ""}
+                onPress={() => setFilter("Active")}
+              >
+                Active
+              </Button>
+
+              <Button
+                className={filter == "Completed" ? "text-Primary" : ""}
+                onPress={() => setFilter("Completed")}
+              >
+                Completed
+              </Button>
             </div>
           </div>
         </section>
 
-        <span className="text-light-4 pt-8">Drag and Drop to reorder list</span>
+        <span className="text-TextButton pt-8">
+          Drag and Drop to reorder list
+        </span>
       </main>
     </>
   );

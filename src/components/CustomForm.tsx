@@ -47,15 +47,15 @@ const CustomForm: React.FunctionComponent<FormTypes> = ({ setTodos }) => {
     <form
       onSubmit={handleSubmit(onSubmit)}
       action=""
-      className="relative bg-white rounded-md py-6 px-4 flex flex-row gap-2 items-center"
+      className="relative bg-BackgroundTodo rounded-md py-6 px-4 flex flex-row gap-2 items-center"
     >
-      <div className="w-4 h-4 rounded-full border-solid border-light-3 border"></div>
+      <div className="w-6 h-6 rounded-full border-solid border-Border border"></div>
 
       <input
         {...register("description")}
         placeholder="Create a new todo..."
         name="description"
-        className=""
+        className="bg-BackgroundTodo text-TextButton"
       ></input>
       {errors.description && (
         <p className="absolute left-4 -bottom-1 p-1 text-sm text-red-500">

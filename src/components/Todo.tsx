@@ -6,6 +6,9 @@ type TodoProps = {
   index: number;
   removeTodo: (id: number) => void;
   changeComplete: (id: number) => void;
+  dragStart: (e: React.DragEvent<HTMLLIElement>) => void;
+  dragEnter: (e: React.DragEvent<HTMLLIElement>) => void;
+  dropItem: () => void;
 };
 
 const Todo: React.FunctionComponent<TodoProps> = ({
@@ -13,10 +16,20 @@ const Todo: React.FunctionComponent<TodoProps> = ({
   index,
   removeTodo,
   changeComplete,
+  dragStart,
+  dragEnter,
+  dropItem,
 }) => {
   return (
     <>
-      <li className="flex flex-row items-center justify-between bg-BackgroundTodo p-4 text-TextParagraph">
+      <li
+        className="flex flex-row items-center justify-between bg-BackgroundTodo p-4 text-TextParagraph cursor-grab"
+        onDragStart={(e) => dragStart(e)}
+        onDragEnter={(e) => dragEnter(e)}
+        onDragEnd={() => dropItem()}
+        draggable
+        id={`${index}`}
+      >
         <div className="flex flex-row items-center gap-2">
           <Button
             onPress={() => changeComplete(index)}

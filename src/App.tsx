@@ -17,8 +17,8 @@ function App() {
     { description: "test", completed: false },
   ]);
   const [filter, setFilter] = useState<FilterProps>("All");
-  const dragItem = useRef();
-  const dragOverItem = useRef();
+  const dragItem = useRef<string | undefined>();
+  const dragOverItem = useRef<string | undefined>();
 
   useEffect(() => {
     fetch("data.json")
@@ -34,7 +34,7 @@ function App() {
         : todos;
 
   function removeTodo(id: number): void {
-    setTodos((prev) => prev.filter((elem, index) => id != index));
+    setTodos((prev) => prev.filter((_, index) => id != index));
   }
   function changeComplete(id: number): void {
     setTodos((prev) => {
@@ -48,22 +48,35 @@ function App() {
   }
 
   function dragStart(e: React.DragEvent<HTMLLIElement>): void {
-    dragItem.current = e.target.id;
-    console.log(e.target.id);
+    dragItem.current = (e.target as HTMLLIElement).id;
   }
+
   function dragEnter(e: React.DragEvent<HTMLLIElement>): void {
     dragOverItem.current = e.currentTarget.id;
-    console.log(e.currentTarget.id);
   }
 
   function dropItem(): void {
+    if (dragItem.current === undefined || dragOverItem.current === undefined) {
+      return;
+    }
+    const dragIndex = parseInt(dragItem.current);
+    const dropIndex = parseInt(dragOverItem.current);
+
+    if (isNaN(dragIndex) || isNaN(dropIndex)) {
+      return; // Handle invalid indices
+    }
+
+    if (isNaN(dragIndex) || isNaN(dropIndex)) {
+      return; // Handle invalid indices
+    }
+
     const newTodos = [...todos];
-    const draggedItem = newTodos[dragItem.current * 1];
-    newTodos.splice(dragItem.current * 1, 1);
-    newTodos.splice(dragOverItem.current * 1, 0, draggedItem);
+    const draggedItem = newTodos[dragIndex];
+    newTodos.splice(dragIndex, 1);
+    newTodos.splice(dropIndex, 0, draggedItem);
     setTodos(newTodos);
-    dragItem.current = null;
-    dragOverItem.current = null;
+    dragItem.current = undefined;
+    dragOverItem.current = undefined;
   }
 
   function clearCompletedTodos(): void {

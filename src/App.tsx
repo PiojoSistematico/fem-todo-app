@@ -90,7 +90,7 @@ function App() {
         data-theme={theme}
       >
         <header
-          className={`absolute top-0 left-0 z-0 w-full flex flex-row items-start justify-between p-8 bg-center bg-no-repeat bg-cover h-1/4 ${theme == "light" ? "bg-[url('src/assets/images/bg-mobile-light.jpg')] md:bg-[url('src/assets/images/bg-desktop-light.jpg')]" : "bg-[url('src/assets/images/bg-mobile-dark.jpg')] md:bg-[url('src/assets/images/bg-desktop-dark.jpg')]"} `}
+          className={`absolute top-0 left-0 z-0 w-full flex flex-row items-start justify-between p-8 bg-center bg-no-repeat bg-cover h-1/4 ${theme == "light" ? "bg-[url('/bg-mobile-light.jpg')] md:bg-[url('/bg-desktop-light.jpg')]" : "bg-[url('/bg-mobile-dark.jpg')] md:bg-[url('/bg-desktop-dark.jpg')]"} `}
         >
           <h1 className="text-white uppercase font-bold tracking-[8px] text-3xl">
             todo
